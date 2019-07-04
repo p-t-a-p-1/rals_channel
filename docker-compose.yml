@@ -1,0 +1,27 @@
+# docker-compose の使用するバージョン
+version: '3.7'
+# コンテナから作られるサービス
+services:
+    # コンテナ名
+    app:
+        # Dockerfile のpath指定（相対パス）
+        build: "app"
+        # 依存関係 今回はappコンテナでmysqlを使いたいのでdbコンテナを指定
+        depends_on:
+            - db
+        # ポートフォワーディング設定 ローカルポート:コンテナポート
+        ports:
+            - 55555:8000
+        # マウント設定 ローカルパス:コンテナパス
+        volumes: 
+            - /Users/hako85/workspace/rals_channel/app/laravel:/home
+    db:
+        # Dockerfile から build せず既存の image を使うときは記載
+        image: mysql:5.7
+        # DB に必要な環境変数を指定
+        environment:
+            MY_SQL_ROOT_PASSWORD: "password"
+        ports:
+            - 33066:3306
+        volumes: 
+            - /Users/hako85/workspace/rals_channel/db/data:/var/lib/mysql

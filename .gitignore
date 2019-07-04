@@ -1,3 +1,5 @@
 app/laravel
-db/*
-!db/.gitkeep
+!app/laravel/.gitkeep
+db/data/*
+db/ib_buffer_pool
+!db/data/.gitkeep
